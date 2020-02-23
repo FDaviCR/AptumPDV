@@ -6,8 +6,15 @@ const connection = require("./database/database.js");
 const adminAuth = require("./middleware/adminAuth");
 
 const usersController = require("./controllers/users/UsersController");
+const produtosController = require("./controllers/produto/ProdutosController");
+//const orcamentoController = require("./controllers/orcamento/OrcamentosController");
+//const orcamentoItensController = require("./controllers/orcamentoItens/OrcamentoItensController");
+
 
 const User = require("./controllers/users/Users");
+const Produtos = require("./controllers/produto/Produtos");
+//const Orcamento = require("./controllers/orcamento/Orcamentos");
+//const OrcamentoItens = require("./controllers/orcamentoItens/OrcamentoItens");
 
 // View engine
 app.set('view engine','ejs');
@@ -36,6 +43,8 @@ connection.authenticate()
     })
 
 app.use("/", usersController);
+app.use("/", produtosController);
+//app.use("/". );
 
 
 // Router

@@ -4,7 +4,7 @@ const Produtos = require("./Produtos");
 const adminAuth = require("../../middleware/adminAuth");
 
 
-router.get("/produtos/new", (req, res)=>{
+router.get("/produtos/new", adminAuth, (req, res)=>{
     res.render("admin/produtos/new");
 });
 
@@ -25,7 +25,7 @@ router.post("/produtos/save", (req, res)=>{
     }
 });
 
-router.get("/produtos", (req, res)=>{
+router.get("/produtos", adminAuth,(req, res)=>{
     Produtos.findAll().then(produtos =>{
         res.render("admin/produtos/index", {produtos:produtos});
     });
@@ -53,7 +53,7 @@ router.post("/produtos/delete", (req, res)=>{
     }
 });
 
-router.get("/produtos/edit/:id", (req, res)=>{
+router.get("/produtos/edit/:id", adminAuth,(req, res)=>{
     var id = req.params.id;
 
     if(isNaN(id)){

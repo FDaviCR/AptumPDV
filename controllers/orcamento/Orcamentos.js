@@ -1,15 +1,12 @@
 const Sequelize = require("sequelize");
 const connection = require("../../database/database");
 
-const OrcamentoItens = require("../orcamentoItens/OrcamentoItens");
+const Clientes = require("../cliente/Clientes");
 
 const Orcamento = connection.define('orcamentos',{
-    cliente:{
-        type: Sequelize.STRING,
-        allowNull: false
-    },
+
     tipo:{
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.STRING,
         allowNull: false
     },
     formPagamento:{
@@ -17,8 +14,7 @@ const Orcamento = connection.define('orcamentos',{
         allowNull: false
     },
     valor:{
-        type: Sequelize.DECIMAL,
-        allowNull: false
+        type: Sequelize.DECIMAL(15,2)
     },
     aprovado:{
         type: Sequelize.BOOLEAN,
@@ -26,7 +22,7 @@ const Orcamento = connection.define('orcamentos',{
     }
 })
 
-Orcamento.hasMany(OrcamentoItens);
+Orcamento.belongsTo(Clientes);
 
 Orcamento.sync({force:false});
 

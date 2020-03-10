@@ -9,16 +9,16 @@ const usersController = require("./controllers/users/UsersController");
 const produtosController = require("./controllers/produto/ProdutosController");
 const clientesController = require("./controllers/cliente/ClientesController");
 const fornecedoresController = require("./controllers/fornecedor/FornecedoresController");
-//const orcamentoController = require("./controllers/orcamento/OrcamentosController");
-//const orcamentoItensController = require("./controllers/orcamentoItens/OrcamentoItensController");
+const orcamentosController = require("./controllers/orcamento/OrcamentosController");
+const orcamentoItensController = require("./controllers/orcamentoItens/OrcamentoItensController");
 
 
 const User = require("./controllers/users/Users");
 const Produtos = require("./controllers/produto/Produtos");
 const Clientes = require("./controllers/cliente/Clientes");
 const Fornecedores = require("./controllers/fornecedor/Fornecedores");
-//const Orcamento = require("./controllers/orcamento/Orcamentos");
-//const OrcamentoItens = require("./controllers/orcamentoItens/OrcamentoItens");
+const Orcamento = require("./controllers/orcamento/Orcamentos");
+const OrcamentoItens = require("./controllers/orcamentoItens/OrcamentoItens");
 
 // View engine
 app.set('view engine','ejs');
@@ -50,7 +50,8 @@ app.use("/", usersController);
 app.use("/", produtosController);
 app.use("/", clientesController);
 app.use("/", fornecedoresController);
-//app.use("/". );
+app.use("/", orcamentosController);
+app.use("/", orcamentoItensController);
 
 
 // Router

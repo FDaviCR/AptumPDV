@@ -1,20 +1,26 @@
 const Sequelize = require("sequelize");
 const connection = require("../../database/database");
 
+const Orcamento = require("../orcamento/Orcamentos");
+const Produto = require("../produto/Produtos");
+
 const OrcamentoItens = connection.define('orcamentoItens',{
-    produto:{
-        type: Sequelize.STRING,
-        allowNull: false
-    },
     quantidade:{
         type: Sequelize.BIGINT,
         allowNull: false
     },
-    valor:{
-        type: Sequelize.DECIMAL,
+    valorUnitario:{
+        type: Sequelize.DECIMAL(18,2),
+        allowNull: false
+    },
+    valorTotal:{
+        type: Sequelize.DECIMAL(18,2),
         allowNull: false
     }
 })
+
+OrcamentoItens.belongsTo(Orcamento);
+OrcamentoItens.belongsTo(Produto);
 
 OrcamentoItens.sync({force:false});
 

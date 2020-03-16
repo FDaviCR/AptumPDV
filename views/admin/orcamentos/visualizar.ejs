@@ -4,12 +4,7 @@
 <div class="container" >
     <hr>
     <h2>Orçamento</h2>    
-    <hr>
-    <a href="/orcamentos/pdf/<%= orcamento.id %>" class="btn btn-dark">Preparar Envio</a><br>
-    <form method="POST" action="/orcamentos/envioEmail">
-        <input id="email" name="email" type="hidden" value="<%= orcamento.cliente.email %>">
-        <button class="btn btn-dark">Enviar</button>
-    </form>
+    
     <hr>
     <div style="font-weight: bold;color:blue;font-size:15px;">
         <div class="form-group row">
@@ -64,6 +59,15 @@
             </div>
         </div>
     </form>
+    <hr>
+    <div>
+        <a href="/orcamentos/pdf/<%= orcamento.id %>" class="btn btn-outline-primary">Preparar Envio</a><br><br>
+        <form method="POST" action="/orcamentos/envioEmail">
+            <input id="email" name="email" type="hidden" value="<%= orcamento.cliente.email %>">
+            <button class="btn btn-outline-success">Enviar</button>
+        </form>
+    </div>
+    <hr>
 </div>
 
 <%- include ('../../partials/footer.ejs')%>

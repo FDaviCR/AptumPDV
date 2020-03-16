@@ -5,6 +5,11 @@ const Produto = require("../produto/Produtos");
 const Orcamento = require("../orcamento/Orcamentos");
 const OrcamentoItens = require("../orcamentoItens/OrcamentoItens");
 const adminAuth = require("../../middleware/adminAuth");
+let ejs = require("ejs");
+let app = express();
+let pdf = require("html-pdf");
+let path = require("path");
+
 
 router.get("/orcamentoItens/:id", adminAuth,(req, res)=>{
     var idOrcamento = req.params.id;
@@ -66,6 +71,7 @@ router.post("/orcamentoItens/delete", (req, res)=>{
 
 router.get("/orcamentos/visualizar/:id",  adminAuth, (req, res)=>{
     var id = req.params.id;
+    
     Orcamento.findByPk(id, {include:[{model:Cliente}]}).then(orcamento=>{
         if(orcamento != undefined){
             OrcamentoItens.findAll({
@@ -73,6 +79,63 @@ router.get("/orcamentos/visualizar/:id",  adminAuth, (req, res)=>{
                 include: [{model: Produto}]
             }).then(orcamentoItens=>{
                 res.render("admin/orcamentos/visualizar",{orcamentoItens:orcamentoItens,orcamento:orcamento});
+            });
+        }else{
+            res.redirect("/orcamentos");
+        }
+    }).catch(err=>{
+        console.log(err);
+        res.redirect("/");
+    });
+});
+
+router.post("/orcamentos/envioEmail",  adminAuth, (req, res)=>{
+    var email = req.body.email;
+    var orcamento = req.body.orcamentoCompleto;
+    console.log(email);
+    console.log(orcamento);
+    if(email != undefined){
+        var EmailEnvio = require('../../function/Email'),
+        envio = new EmailEnvio(email,orcamento);
+
+        res.redirect("/orcamentos");
+    }else{
+        res.redirect("/orcamentos");
+    }
+});
+
+router.get("/orcamentos/pdf/:id", (req, res)=>{
+    var id = req.params.id;
+    
+    Orcamento.findByPk(id, {include:[{model:Cliente}]}).then(orcamento=>{
+        if(orcamento != undefined){
+            OrcamentoItens.findAll({
+                where:{ orcamentoId: id},
+                include: [{model: Produto}]
+            }).then(orcamentoItens=>{
+                ejs.renderFile(path.join(__dirname, './views/', "template.ejs"), {orcamentoItens:orcamentoItens,orcamento:orcamento}, (err, data) => {
+                    if (err) {
+                          res.send(err);
+                    } else {
+                        let options = {
+                            "height": "11.25in",
+                            "width": "8.5in",
+                            "header": {
+                                "height": "20mm"
+                            },
+                            "footer": {
+                                "height": "20mm",
+                            },
+                        };
+                        pdf.create(data, options).toFile("report.pdf", function (err, data) {
+                            if (err) {
+                                res.redirect("/orcamentos/visualizar/"+id);
+                            } else {
+                                res.redirect("/orcamentos/visualizar/"+id);
+                            }
+                        });
+                    }
+                });
             });
         }else{
             res.redirect("/orcamentos");

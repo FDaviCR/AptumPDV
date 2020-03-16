@@ -1,9 +1,15 @@
 <%- include ('../../partials/header.ejs')%>
 <%- include ('../../partials/navbar.ejs')%>
 
-<div class="container">
+<div class="container" >
     <hr>
-    <h2>Orçamento</h2>
+    <h2>Orçamento</h2>    
+    <hr>
+    <a href="/orcamentos/pdf/<%= orcamento.id %>" class="btn btn-dark">Preparar Envio</a><br>
+    <form method="POST" action="/orcamentos/envioEmail">
+        <input id="email" name="email" type="hidden" value="<%= orcamento.cliente.email %>">
+        <button class="btn btn-dark">Enviar</button>
+    </form>
     <hr>
     <div style="font-weight: bold;color:blue;font-size:15px;">
         <div class="form-group row">
@@ -76,4 +82,5 @@
         
     }
     document.getElementById("totalOrcamento").value = parseFloat(getTotal(4)).toFixed(2);
+    document.getElementById("")
 </script>

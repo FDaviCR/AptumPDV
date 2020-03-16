@@ -38,6 +38,8 @@ router.post("/clientes/save", (req, res)=>{
 });
 
 router.get("/clientes", adminAuth,(req, res)=>{
+    //var GeradorPDF = require('../../function/GeradorPDF'),
+    //envio = new GeradorPDF();
     Clientes.findAll().then(clientes =>{
         res.render("admin/clientes/index", {clientes:clientes});
     });

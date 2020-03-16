@@ -5,6 +5,7 @@ const bodyParser = require("body-parser"); //Importando Body Parser
 const connection = require("./database/database.js");
 const adminAuth = require("./middleware/adminAuth");
 
+
 const usersController = require("./controllers/users/UsersController");
 const produtosController = require("./controllers/produto/ProdutosController");
 const clientesController = require("./controllers/cliente/ClientesController");
@@ -59,7 +60,11 @@ app.get("/", adminAuth, (req, res) => {
     res.render("index.ejs");
 })
 
+
 // End Router
 app.listen(3000, () => {
     console.log("O servidor está rodando!")
 })
+
+
+

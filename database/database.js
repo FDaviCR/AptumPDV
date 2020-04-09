@@ -11,7 +11,7 @@ const connection = new Sequelize(
 );
 */
 
-const connection = new Sequelize('aptumpdv','davi','senhateste',{
+const connection = new Sequelize('aptumpdv','davi','senhaatual',{
     host: 'mysql669.umbler.com',
     dialect: 'mysql',
     timezone: "-03:00"

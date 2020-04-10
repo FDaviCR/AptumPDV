@@ -4,7 +4,7 @@ const connection = require("../../database/database");
 const Orcamento = require("../orcamento/Orcamentos");
 const Produto = require("../produto/Produtos");
 
-const OrcamentoItens = connection.define('orcamentoItens',{
+const OrcamentoItens = connection.define('orcamentoitens',{
     quantidade:{
         type: Sequelize.BIGINT,
         allowNull: false
